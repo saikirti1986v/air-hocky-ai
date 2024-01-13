@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>air hocky</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -69,7 +59,8 @@
         var friction = 0.9;
         var winningScore = 5;
 
-        document.addEventListener("mousemove", mouseMoveHandler, false);
+        canvas.addEventListener("mousemove", mouseMoveHandler, false);
+        canvas.addEventListener("touchmove", touchMoveHandler, false);
 
         function draw_rect(x, y, w, h, b) {
             ctx.beginPath();
@@ -200,6 +191,20 @@
             }
         }
 
+        function touchMoveHandler(e) {
+            e.preventDefault();
+            var touch = e.touches[0];
+            var relativeX = touch.clientX - canvas.offsetLeft;
+            var relativeY = touch.clientY - canvas.offsetTop;
+
+            if (relativeX > 60 && relativeX < canvas.width - 60) {
+                pMallet.x = relativeX;
+            }
+            if (relativeY > 0 && relativeY < 600) {
+                pMallet.y = relativeY;
+            }
+        }
+
         function checkWinner() {
             if (player_score >= winningScore || com_score >= winningScore) {
                 if (player_score > com_score) {
@@ -316,8 +321,4 @@
     </script>
 </body>
 
-</html>
-<!-- partial -->
-  
-</body>
 </html>
